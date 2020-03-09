@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import './App.css';
 import Person from './Person/Person';
+
+const StyledButton = styled.button `
+  background-color: green;
+  color: white;
+  font: inherit;
+  border: 1px solid green;
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: lightgreen;
+    color: #000
+  }
+`;
 
 class App extends Component {
 
@@ -40,6 +54,9 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
   render() {
+    const style = {
+      
+    }
     let persons = null;
     if (this.state.showPersons){
       persons = (
@@ -54,11 +71,28 @@ class App extends Component {
          })}
           </div>
       )
+      style.backgroundColor = 'red';
+      style.border = '1px solid red';
+      style['hover'] = {
+        backgroundColor: 'salmon',
+        color: '#000'
+      }
+    }
+
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
     }
     return (
       <div className="App">
         <h1> Hi, I'm a React App</h1>
-        <button onClick={this.togglePersonsHandler} >Switch Name</button>
+        <p className={classes.join(' ')}>This is really working!</p>
+        <StyledButton
+          onClick={this.togglePersonsHandler} >Switch Name
+        </StyledButton>
         {persons}
       </div>
     );
